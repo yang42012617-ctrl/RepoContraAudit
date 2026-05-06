@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "repocontraaudit"
+version = "0.1.0"
+description = "Open reference implementation of repository-level multimodal evidence auditing with latent evidence chains and anti-fact perturbations."
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+authors = [
+  {name = "RepoContraAudit contributors"}
+]
+dependencies = [
+  "torch>=2.0",
+  "networkx>=3.0",
+  "PyYAML>=6.0"
+]
+keywords = ["code-auditing", "vulnerability-detection", "graph-learning", "explainable-ai"]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=7.0",
+  "ruff>=0.4"
+]
+
+[project.scripts]
+repocontraaudit-build = "repocontraaudit.cli.build_graph:main"
+repocontraaudit-train = "repocontraaudit.cli.train:main"
+repocontraaudit-infer = "repocontraaudit.cli.infer:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
