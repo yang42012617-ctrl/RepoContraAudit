@@ -1,0 +1,48 @@
+{
+  "dataset": "Big-Vul",
+  "domain": "C/C++",
+  "manifest_version": "anonymous-v1",
+  "split_policy": "project_family_disjoint",
+  "random_seed": 13,
+  "input_snapshot": "pre_fix_only",
+  "leakage_controls": {
+    "exclude_post_fix_code": true,
+    "exclude_patch_hunks": true,
+    "exclude_vulnerability_fixing_commit_text": true,
+    "exclude_label_revealing_cve_or_issue_text": true,
+    "filter_label_revealing_static_alerts": true,
+    "exact_deduplication": "normalized_code_and_metadata_hash",
+    "near_deduplication": {
+      "token_jaccard_threshold": 0.90,
+      "ast_multiset_threshold": 0.85,
+      "embedding_cosine_threshold": 0.98
+    }
+  },
+  "reconstruction_counts": {
+    "raw_samples": 3754,
+    "checked_out": 3712,
+    "parsed": 3621,
+    "graph_built": 3349,
+    "after_exact_dedup": 3128,
+    "after_near_dedup": 2987,
+    "final_audit_units": 2987
+  },
+  "supervision_coverage": {
+    "statement_rationales": 1436,
+    "trace_available": 1284,
+    "patch_supervision": 1436,
+    "long_range_samples": 731,
+    "project_families": 227,
+    "train_families": 158,
+    "validation_families": 34,
+    "test_families": 35,
+    "manual_chain_checks": 91
+  },
+  "split_files": {
+    "train": "bigvul_train_ids.jsonl",
+    "validation": "bigvul_validation_ids.jsonl",
+    "test": "bigvul_test_ids.jsonl"
+  },
+  "notes": "This anonymous manifest records aggregate split and leakage-control metadata only. Concrete sample identifiers are represented by anonymized split files in the full review artifact."
+}
+

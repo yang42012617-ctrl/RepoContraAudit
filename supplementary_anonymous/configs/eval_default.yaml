@@ -1,0 +1,55 @@
+seed: 13
+device: auto
+
+inputs:
+  test_jsonl: data/graphs/test.jsonl
+  checkpoint: runs/repocontraaudit/model.pt
+  split_manifest_dir: supplementary_anonymous/splits
+
+outputs:
+  prediction_jsonl: results/repocontraaudit_predictions.jsonl
+  localization_jsonl: results/repocontraaudit_localization.jsonl
+  chain_jsonl: results/repocontraaudit_chains.jsonl
+  antifact_jsonl: results/repocontraaudit_antifact.jsonl
+
+evaluation:
+  detection_metrics:
+    - accuracy
+    - precision
+    - recall
+    - f1
+    - auroc
+    - false_positive_rate
+  localization_metrics:
+    - statement_precision
+    - statement_recall
+    - statement_f1
+    - statement_recall_at_5
+    - function_recall_at_3
+    - file_recall_at_3
+  chain_metrics:
+    - chain_precision
+    - chain_recall
+    - chain_f1
+    - edge_f1
+  antifact_metrics:
+    - flip_rate
+    - confidence_drop
+    - sufficiency
+    - comprehensiveness
+    - intervention_size
+    - connectivity
+    - overall_plausibility
+
+anti_fact:
+  run_search: true
+  proposal_steps: 40
+  node_threshold: 0.50
+  edge_threshold: 0.40
+  plausibility_checks:
+    syntax: true
+    def_use: true
+    call_graph: true
+    static_reanalysis: true
+    trace_reachability: true
+

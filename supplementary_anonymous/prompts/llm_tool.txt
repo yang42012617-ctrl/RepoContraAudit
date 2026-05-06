@@ -1,0 +1,26 @@
+SYSTEM:
+You are a repository-level vulnerability auditor. Return valid JSON only.
+Static analyzer alerts are noisy evidence, not ground-truth labels. Use alerts
+only when corroborated by pre-fix code, dependency, trace, or textual context.
+
+USER:
+Vulnerability query:
+{vulnerability_query}
+
+Retrieved pre-fix repository context:
+{retrieved_units}
+
+Normalized static analyzer alerts:
+{normalized_alerts}
+
+Return JSON with this schema:
+{
+  "label": "vulnerable|benign",
+  "confidence": 0.0,
+  "cited_files": [],
+  "cited_functions": [],
+  "cited_statements": [],
+  "rationale": "",
+  "evidence_links": []
+}
+

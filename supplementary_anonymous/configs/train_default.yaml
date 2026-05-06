@@ -1,0 +1,53 @@
+seed: 13
+device: auto
+
+data:
+  train_jsonl: data/graphs/train.jsonl
+  valid_jsonl: data/graphs/valid.jsonl
+  test_jsonl: data/graphs/test.jsonl
+  split_manifest_dir: supplementary_anonymous/splits
+  input_policy: pre_fix_only
+
+model:
+  hidden_dim: 256
+  graph_layers: 3
+  chain_budget: 6
+  beam_width: 6
+  modality_dropout: 0.10
+  text_encoder: transformer_or_hash_reference
+
+optimization:
+  optimizer: adamw
+  learning_rate: 0.00002
+  weight_decay: 0.01
+  batch_size: 16
+  max_epochs: 30
+  warmup_ratio: 0.10
+  early_stopping_patience: 5
+  early_stopping_metric: validation_macro_f1
+  tie_break_metric: statement_f1
+  mixed_precision: true
+
+loss_weights:
+  classification: 1.0
+  localization: 1.0
+  evidence_chain: 0.5
+  alignment: 0.2
+  anti_fact: 0.5
+  patch_auxiliary: 0.2
+
+partial_supervision:
+  use_observation_masks: true
+  apply_localization_loss_when_available: true
+  apply_chain_loss_when_available: true
+  apply_patch_auxiliary_when_available: true
+  exclude_patch_text_from_inputs: true
+
+anti_fact:
+  enabled_during_training: true
+  proposal_steps: 40
+  proposal_learning_rate: 0.05
+  node_threshold: 0.50
+  edge_threshold: 0.40
+  gradient_clip: 1.0
+

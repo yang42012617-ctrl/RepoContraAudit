@@ -1,0 +1,47 @@
+model:
+  name: llama-3.1-70b-instruct
+  serving: local_or_api
+  temperature: 0.0
+  top_p: 1.0
+  sampling: false
+  max_input_tokens: 12288
+  max_output_tokens_detection: 384
+  max_output_tokens_graph_rationale: 512
+
+shared_policy:
+  input_snapshot: pre_fix_only
+  exclude_post_fix_code: true
+  exclude_patch_hunks: true
+  exclude_vulnerability_fixing_commit_text: true
+  exclude_label_revealing_cve_text: true
+  exclude_model_predictions: true
+  exclude_model_selected_explanations: true
+  output_format: valid_json_only
+
+retrieval:
+  candidate_units:
+    - file
+    - function
+    - statement
+  top_k: 6
+  lexical_component: bm25_identifier_matching
+  dense_component: frozen_code_retriever_embeddings
+  auxiliary_overlap_features:
+    - analyzer_alert_overlap
+    - trace_alignment_overlap
+  tie_breaking: deterministic
+
+settings:
+  llm_direct:
+    prompt: prompts/llm_direct.txt
+    context: curated_mixed_repository_context
+  llm_rag:
+    prompt: prompts/llm_rag.txt
+    context: top_k_retrieved_files_functions_statements
+  llm_tool:
+    prompt: prompts/llm_tool.txt
+    context: top_k_retrieval_plus_normalized_alerts
+  llm_evidencegraph:
+    prompt: prompts/llm_evidencegraph.txt
+    context: textualized_raw_typed_evidence_graph
+

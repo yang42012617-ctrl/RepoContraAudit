@@ -54,6 +54,14 @@ large-scale training recipe. Anti-fact outputs are evidence-level
 decision-sensitivity tests with lightweight plausibility checks. They are not
 semantic repairs and do not prove vulnerability removal.
 
+## Anonymous Supplementary Package
+
+The `supplementary_anonymous/` directory contains the anonymized artifact
+skeleton used for double-blind supplementary release: configuration files, split
+manifests, prompt templates, command templates, metric scripts, significance
+tests, and profiling templates. The generated archive is named
+`repocontraaudit_supplementary_anonymous.zip`.
+
 ## Minimal Data Format
 
 Each JSONL row is one repository-level audit unit:
